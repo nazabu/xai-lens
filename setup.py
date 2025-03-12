@@ -3,24 +3,23 @@ from setuptools import setup, find_packages
 setup(
     name="xai-lens",
     version="0.1.0",
-    description="A universal explainability analysis package for ML models",
-    author="Abu",
-    url="https://github.com/nazabu/xai-lens",
+    author="Your Name",
+    author_email="your.email@example.com",
+    description="A universal explainability analysis package for ML models.",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/yourusername/XAI-Lens",
     packages=find_packages(),
     install_requires=[
-        "shap",
-        "lime",
         "numpy",
         "pandas",
         "scikit-learn",
-        "matplotlib",
-        "seaborn",
-        "ipython",
+        "matplotlib"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
 )
