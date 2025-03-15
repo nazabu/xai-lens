@@ -4,7 +4,20 @@ import shap
 from sklearn.preprocessing import StandardScaler
 
 class ExplainabilityAnalyzer:
+    """
+    A core class for model explainability analysis.
+    Supports SHAP explanations for various ML models.
+    """
+
+
     def __init__(self, model, data):
+        """
+        Initialize the ExplainabilityAnalyzer with a model and dataset.
+        Parameters:
+        - model: Trained machine learning model (supports sklearn, XGBoost, etc.)
+        - data: Feature dataset (numpy array or pandas dataframe)
+        """
+        
         self.model = model
         self.data = data
         self.explainer = None
