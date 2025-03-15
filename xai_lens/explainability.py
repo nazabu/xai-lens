@@ -19,3 +19,12 @@ class ExplainabilityAnalyzer:
             print(f"Error computing SHAP values: {e}")
 
 
+    def plot_shap_summary(self):
+        if self.explanations is None:
+            print("No SHAP values computed yet. Must call generate_shap_values() first.")
+            return
+
+        print("Plotting SHAP summary plot...")
+        shap.summary_plot(self.explanations.explanations, self.data)
+
+    
