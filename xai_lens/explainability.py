@@ -17,11 +17,13 @@ class ExplainabilityAnalyzer:
         - model: Trained machine learning model (supports sklearn, XGBoost, etc.)
         - data: Feature dataset (numpy array or pandas dataframe)
         """
-        
+
         self.model = model
         self.data = data
         self.explainer = None
         self.explanations = None
+
+
 
     def generate_shap_values(self):
         print("Generating shap values...")
@@ -33,6 +35,9 @@ class ExplainabilityAnalyzer:
 
 
     def plot_shap_summary(self):
+        """
+        Plot a SHAP summary plot to visualize feature importance.
+        """
         if self.explanations is None:
             print("No SHAP values computed yet. Must call generate_shap_values() first.")
             return
@@ -42,6 +47,15 @@ class ExplainabilityAnalyzer:
 
 
     def get_top_features(self, n=3):
+        """
+        Return the top N most important features based on mean SHAP values.
+
+        Parameters:
+        - n: Number of top features to return (default: 5)
+
+        Returns:
+        - A list of top N feature names (or indices if unnamed)
+        """
         if self.explanations is None:
             print("No SHAP values computed yet. Must call generate_shap_values() first.")
             return []
