@@ -7,7 +7,7 @@ def normalize(data):
     scaler = StandardScaler()
     return scaler.fit_transform(data)
 
-def load_model(path)
+def load_model(path):
     try:
         model = joblib.load(path)
         print("Model loaded successfully")
