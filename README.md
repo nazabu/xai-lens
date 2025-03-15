@@ -42,11 +42,17 @@ Thanks for considering contributing! Follow these steps:
 
 1. Fork the repo.
 2. Create a feature branch.
-```git checkout -b feature-name```
+```
+git checkout -b feature-name
+```
 4. Commit your changes.
-```git commit -m "Add feature"```
+```
+git commit -m "Add feature"
+```
 6. Push to GitHub.
-```git push origin feature-name```
+```
+git push origin feature-name
+```
 8. Open a Pull Request.
 
 Make sure to run tests before submitting:
