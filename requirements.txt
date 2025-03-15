@@ -6,3 +6,4 @@ scikit-learn
 matplotlib
 seaborn
 ipython
+joblib
