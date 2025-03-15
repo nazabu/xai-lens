@@ -27,4 +27,12 @@ class ExplainabilityAnalyzer:
         print("Plotting SHAP summary plot...")
         shap.summary_plot(self.explanations.explanations, self.data)
 
-    
+
+    def get_top_features(self, n=3):
+        if self.explanations is None:
+            print("No SHAP values computed yet. Must call generate_shap_values() first.")
+            return []
+
+        mean_abs_shap_values = np.abs(self.explanations.values.mean(axis=0))
+        top_features = np.argsort(mean_abs_shap_values)[::-1][:n]
+        return top_features.tolist()
