@@ -65,6 +65,15 @@ class ExplainabilityAnalyzer:
         return top_features.tolist()
 
     def generate_lime_explanation(self, instance_index=0):
+        """
+        Generate LIME explanation for a single data instance.
+
+        Parameters:
+        - instance_index: Index of the instance to explain (default: 0)
+
+        Returns:
+        - LIME explanation object
+        """
         print("Generating LIME explanation...")
         try:
             explainer = lime.lime_tabular.LimeTabularExplainer(
