@@ -20,3 +20,16 @@ def test_generate_shap_values(sample_data):
     analyzer.generate_shap_values()
 
     assert analyzer.explanations is not None, "SHAP values should not be None."
+
+
+"""Test if top feature indices are returned correctly."""
+def test_get_top_features(sample_data):
+    model, X = sample_data
+    analyzer = ExplainabilityAnalyzer(model, X)
+
+    analyzer.generate_shap_values()
+    top_features = analyzer.get_top_features(n=3)
+
+    assert isinstance(top_features, list), "Output should be a list."
+    assert len(top_features) == 3, "Should return exactly 3 features."
+    assert all(isinstance(i, int) for i in top_features), "Feature indices should be integers."
