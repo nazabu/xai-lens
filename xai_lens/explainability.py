@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import shap
+import lime
 from sklearn.preprocessing import StandardScaler
 
 class ExplainabilityAnalyzer:
