@@ -63,3 +63,23 @@ class ExplainabilityAnalyzer:
         mean_abs_shap_values = np.abs(self.explanations.values.mean(axis=0))
         top_features = np.argsort(mean_abs_shap_values)[::-1][:n]
         return top_features.tolist()
+
+    def generate_lime_explanation(self, instance_index=0):
+        print("Generating LIME explanation...")
+        try:
+            explainer = lime.lime_tabular.LimeTabularExplainer(
+                training_data=self.data,
+                mode="classification",
+                feature_names=[f"Feature {i}" for i in range(self.data.shape[1])],
+                discretize_continuous=True
+            )
+
+            explanation = explainer.explain_instance(
+                self.data[instance_index],
+                self.model.predict_proba
+            )
+            explanation.show_in_notebook()
+            return explanation
+        except Exception as e:
+            print(f"Error generating LIME explanation: {e}")
+            return None
