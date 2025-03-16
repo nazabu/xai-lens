@@ -6,7 +6,7 @@
 ```bash
 pip install xai-lens
 ```
-# Desired Initial Project Structure
+## Desired Initial Project Structure
 ```
 XAI-Lens/
 │── xai_lens/                   # Main package directory
@@ -36,7 +36,7 @@ XAI-Lens/
 
 ```
 
-# Contributing to XAI-Lens
+## Contributing to XAI-Lens
 
 Thanks for considering contributing! Follow these steps:
 
@@ -54,6 +54,7 @@ git commit -m "Add feature"
 git push origin feature-name
 ```
 8. Open a Pull Request.
+
 
 Make sure to run tests before submitting:
 ```bash
