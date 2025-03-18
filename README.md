@@ -1,6 +1,8 @@
 # XAI-Lens (Lens)
 
-Lens is a universal explainability analysis package for ML models. It provides easy-to-use tools for generating explainability reports, detecting biases, and scoring model interpretability.
+Lens is a universal explainability analysis package for ML models. It provides easy-to-use tools for generating explainability reports, detecting biases, and scoring model interpretability. 
+
+1. [ ] Currently under construction...
 
 ## Installation
 ```bash
