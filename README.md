@@ -53,7 +53,7 @@ git push origin feature-name
 ```
 8. Open a Pull Request.
 
-
+### Unit tests
 Make sure to run tests before submitting:
 ```bash
 pytest tests/
