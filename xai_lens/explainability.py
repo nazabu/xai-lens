@@ -33,6 +33,7 @@ class ExplainabilityAnalyzer:
             self.explainations = self.explainer(self.data)
         except Exception as e:
             print(f"Error computing SHAP values: {e}")
+            self.explainations = None
 
 
     def plot_shap_summary(self):
