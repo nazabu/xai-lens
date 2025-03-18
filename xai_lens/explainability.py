@@ -27,6 +27,7 @@ class ExplainabilityAnalyzer:
 
 
     def generate_shap_values(self):
+        """Generate SHAP values for model interpretability."""
         print("Generating shap values...")
         try:
             self.explainer = shap.KernelExplainer(model=self.model, data=self.data)
