@@ -6,8 +6,8 @@ from xai_lens.explainability import ExplainabilityAnalyzer
 """Generate a sample dataset and trained model for testing."""
 @pytest.fixture
 def sample_data():
-    X, y = make_classification(n_samples=100, n_features=5, random_state=42)
     model = RandomForestClassifier()
+    X, y = make_classification(n_samples=100, n_features=5, random_state=42)
     model.fit(X, y)
     return model, X
 
