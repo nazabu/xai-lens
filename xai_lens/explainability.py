@@ -29,6 +29,9 @@ class ExplainabilityAnalyzer:
         """Generate SHAP values for model interpretability."""
         print("Generating shap values...")
         try:
+            def model_predict(X):
+                return self.model.predict_proba(X)[:, 1]
+
             self.explainer = shap.KernelExplainer(model=self.model, data=self.data)
             self.explanations = self.explainer(self.data)
         except Exception as e:
@@ -45,7 +48,7 @@ class ExplainabilityAnalyzer:
             return
 
         print("Plotting SHAP summary plot...")
-        shap.summary_plot(self.explanations.explanations, self.data)
+        shap.summary_plot(self.explanations, self.data)
 
 
     def get_top_features(self, n=3):
