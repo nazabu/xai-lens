@@ -67,7 +67,10 @@ class ExplainabilityAnalyzer:
 
         mean_abs_shap_values = np.abs(self.explanations.values.mean(axis=0))
         top_features = np.argsort(mean_abs_shap_values)[::-1][:n]
+
         return top_features.tolist()
+
+
 
     def generate_lime_explanation(self, instance_index=0):
         """
@@ -94,6 +97,7 @@ class ExplainabilityAnalyzer:
             )
             explanation.show_in_notebook()
             return explanation
+
         except Exception as e:
             print(f"Error generating LIME explanation: {e}")
             return None
