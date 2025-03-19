@@ -29,8 +29,12 @@ class ExplainabilityAnalyzer:
         """Generate SHAP values for model interpretability."""
         print("Generating shap values...")
         try:
-            def model_predict(X):
-                return self.model.predict_proba(X)[:, 1]
+            if hasattr(self.model, 'predict_proba'):
+                def model_predict(x):
+                    return self.model.predict_proba(x)[:, 1]
+            else:
+                def model_predict(x):
+                    return self.model.predict(x)
 
             self.explainer = shap.KernelExplainer(model=self.model, data=self.data)
             self.explanations = self.explainer(self.data)
