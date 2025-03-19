@@ -36,7 +36,7 @@ class ExplainabilityAnalyzer:
                 def model_predict(x):
                     return self.model.predict(x)
 
-            self.explainer = shap.KernelExplainer(model=self.model, data=self.data)
+            self.explainer = shap.KernelExplainer(model=model_predict, data=self.data)
             self.explanations = self.explainer(self.data)
         except Exception as e:
             print(f"Error computing SHAP values: {e}")
