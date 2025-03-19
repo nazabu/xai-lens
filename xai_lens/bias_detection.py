@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import sklearn.metrics import confusion_martix
+from sklearn.metrics import confusion_matrix
 
 class BiasDetector:
     def __init__(self, model, data, target, sensitive_features):
