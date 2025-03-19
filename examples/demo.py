@@ -16,7 +16,7 @@ analyzer = ExplainabilityAnalyzer(model, X)
 
 # Generate and visualize SHAP values
 analyzer.generate_shap_values()
-analyzer.plot_summary()
+analyzer.plot_shap_summary()
 
 # Get top 3 most important features
 top_features = analyzer.get_top_features(n=3)
