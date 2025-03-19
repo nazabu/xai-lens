@@ -31,10 +31,10 @@ class ExplainabilityAnalyzer:
         print("Generating shap values...")
         try:
             self.explainer = shap.KernelExplainer(model=self.model, data=self.data)
-            self.explainations = self.explainer(self.data)
+            self.explanations = self.explainer(self.data)
         except Exception as e:
             print(f"Error computing SHAP values: {e}")
-            self.explainations = None
+            self.explanations = None
 
 
     def plot_shap_summary(self):
