@@ -80,6 +80,7 @@ class BiasDetector:
             else:
                 impact_scores[group] = rate / reference_group[1]
 
+        # Overall assessment
         min_score = min(impact_scores.values())
         assessment = "Potential disparate impact detected" if min_score < threshold else "No disparate impact detected"
 
