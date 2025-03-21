@@ -2,7 +2,13 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 
+
 class BiasDetector:
+    """
+    A class for detecting bias in machine learning models.
+    Provides methods to analyze fairness across different demographic groups.
+    """
+
     def __init__(self, model, data, target, sensitive_features):
         self.model = model
         self.data = data
@@ -28,7 +34,9 @@ class BiasDetector:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
         # TODO: make the below readable
-        predictions = self.model.predict(self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name]))
+        predictions = self.model.predict(self.data.drop(
+            columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature,
+                                                                                     self.target.name]))
 
         feature_values = self.data[sensitive_feature].unique()
         positive_rates = {}
@@ -41,7 +49,6 @@ class BiasDetector:
 
         reference_group = max(positive_rates.items(), key=lambda x: x[1])
 
-
         impact_scores = {}
 
         for group, rate in positive_rates.items():
@@ -49,7 +56,6 @@ class BiasDetector:
                 impact_scores[group] = 1.0
             else:
                 impact_scores[group] = rate / reference_group[1]
-
 
         min_score = min(impact_scores.values())
         assessment = "Potential disparate impact detected" if min_score < threshold else "No disparate impact detected"
