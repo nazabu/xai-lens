@@ -10,6 +10,15 @@ class BiasDetector:
     """
 
     def __init__(self, model, data, target, sensitive_features):
+        """
+        Initialize the BiasDetector with a model, dataset, and sensitive attributes.
+
+        Parameters:
+        - model: Trained machine learning model
+        - data: Feature dataset (pandas DataFrame)
+        - target: Target variable name or array
+        - sensitive_features: List of column names representing sensitive attributes
+        """
         self.model = model
         self.data = data
 
@@ -30,6 +39,7 @@ class BiasDetector:
             raise ValueError(f"Sensitive features {missing} not found in data")
 
     def calculate_disparate_impact(self, sensitive_feature, threshold=0.8):
+        
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
