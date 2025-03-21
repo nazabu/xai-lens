@@ -55,6 +55,7 @@ class BiasDetector:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
         # TODO: make the below readable
+        # Get predictions
         predictions = self.model.predict(self.data.drop(
             columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature,
                                                                                      self.target.name]))
