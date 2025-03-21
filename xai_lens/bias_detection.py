@@ -16,4 +16,11 @@ class BiasDetector:
             self.target = target
 
         self.sensitive_features = sensitive_features
-        #validate the sens features
+        self.__validate_sensitive__features()
+
+    def __validate_sensitive__features(self):
+        if not all(feature in self.data.columns for feature in self.sensitive_features):
+            missing = [f for f in self.sensitive_features if f not in self.data.columns]
+            raise ValueError(f"Sensitive features {missing} not found in data")
+
+        
