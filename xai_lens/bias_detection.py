@@ -39,7 +39,18 @@ class BiasDetector:
             raise ValueError(f"Sensitive features {missing} not found in data")
 
     def calculate_disparate_impact(self, sensitive_feature, threshold=0.8):
-        
+        """
+        Calculate disparate impact for a sensitive feature.
+
+        A score < threshold indicates potential disparate impact.
+
+        Parameters:
+        - sensitive_feature: Name of the sensitive feature to analyze
+        - threshold: Threshold for determining disparate impact (default: 0.8)
+
+        Returns:
+        - Dictionary with disparate impact scores and interpretation
+        """
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
