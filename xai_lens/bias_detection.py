@@ -59,7 +59,7 @@ class BiasDetector:
         predictions = self.model.predict(self.data.drop(
             columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature,
                                                                                      self.target.name]))
-
+        # Calculate positive prediction rates for each group
         feature_values = self.data[sensitive_feature].unique()
         positive_rates = {}
 
