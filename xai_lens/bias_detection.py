@@ -72,8 +72,8 @@ class BiasDetector:
         # Find reference group (highest positive prediction rate)
         reference_group = max(positive_rates.items(), key=lambda x: x[1])
 
+        # Calculate disparate impact for all groups compared to reference
         impact_scores = {}
-
         for group, rate in positive_rates.items():
             if group == reference_group[0] or reference_group[1] == 0:
                 impact_scores[group] = 1.0
