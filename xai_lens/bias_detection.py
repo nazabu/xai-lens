@@ -69,6 +69,7 @@ class BiasDetector:
             positive_rate = np.mean(group_predictions == 1) if 1 in group_predictions else 0
             positive_rates[value] = positive_rate
 
+        # Find reference group (highest positive prediction rate)
         reference_group = max(positive_rates.items(), key=lambda x: x[1])
 
         impact_scores = {}
