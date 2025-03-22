@@ -93,9 +93,13 @@ class BiasDetector:
         }
 
     def calculate_equal_opportunity(self, sensitive_feature):
+        """
+        Calculate equality opportunity for sensitive feature.
+        """
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
+        # Get predictions
         features = self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name])
         predictions = self.model.predict(features)
 
