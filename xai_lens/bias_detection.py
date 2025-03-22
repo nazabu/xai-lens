@@ -99,8 +99,11 @@ class BiasDetector:
         features = self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name])
         predictions = self.model.predict(features)
 
-        #TODO: calculate positive rates --> similar to the disparate impact for loop
         feature_values = self.data[sensitive_feature].unique()
         true_positive_rates = {}
 
-        # loop over feature_values --> find mask, pred., tar., and get matrix
+        # loop over feature_values --> get matrix
+        for value in feature_values:
+            group_mask = self.data[sensitive_feature] == value
+            group_predictions = predictions[group_mask]
+            group_target = self.target[group_mask]
