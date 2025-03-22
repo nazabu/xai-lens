@@ -99,10 +99,10 @@ class BiasDetector:
         features = self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name])
         predictions = self.model.predict(features)
 
+        # Calculate true positive rates for each group
         feature_values = self.data[sensitive_feature].unique()
         true_positive_rates = {}
 
-        #  find max difference return tpr, maxdiff, assement
         for value in feature_values:
             group_mask = self.data[sensitive_feature] == value
             group_predictions = predictions[group_mask]
