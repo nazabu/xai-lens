@@ -94,7 +94,15 @@ class BiasDetector:
 
     def calculate_equal_opportunity(self, sensitive_feature):
         """
-        Calculate equality opportunity for sensitive feature.
+        Calculate equal opportunity difference for a sensitive feature.
+
+        Equal opportunity measures the difference in true positive rates across groups.
+
+        Parameters:
+        - sensitive_feature: Name of the sensitive feature to analyze
+
+        Returns:
+        - Dictionary with equal opportunity metrics
         """
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
