@@ -91,3 +91,6 @@ class BiasDetector:
             "threshold": threshold,
             "assessment": assessment
         }
+
+    def calculate_equal_opportunity(self, sensitive_feature):
+        placeholder = None
