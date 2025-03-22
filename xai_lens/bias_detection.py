@@ -108,8 +108,10 @@ class BiasDetector:
             group_predictions = predictions[group_mask]
             group_target = self.target[group_mask]
 
+            # Calculate confusion matrix
             tn, fp, fn, tp = confusion_matrix(group_target, group_predictions, labels=[0,1]).ravel()
 
+            # True positive rate (sensitivity/recall)
             tpr = tp / (tp + fn) if (tp + fn) > 0 else 0 # ensure doesn't divide by 0
             true_positive_rates[value] = tpr
 
