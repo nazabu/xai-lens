@@ -93,4 +93,10 @@ class BiasDetector:
         }
 
     def calculate_equal_opportunity(self, sensitive_feature):
-        placeholder = None
+        if sensitive_feature not in self.sensitive_features:
+            raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
+
+        features = self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name])
+        predictions = self.model.predict(features)
+
+        #TODO: calculate positive rates --> similar to the disparate impact for loop
