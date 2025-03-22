@@ -100,3 +100,7 @@ class BiasDetector:
         predictions = self.model.predict(features)
 
         #TODO: calculate positive rates --> similar to the disparate impact for loop
+        feature_values = self.data[sensitive_feature].unique()
+        true_positive_rates = {}
+
+        # loop over feature_values --> find mask, pred., tar., and get matrix
