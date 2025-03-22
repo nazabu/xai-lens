@@ -113,3 +113,12 @@ class BiasDetector:
             tpr = tp / (tp + fn) if (tp + fn) > 0 else 0 # ensure doesn't divide by 0
             true_positive_rates[value] = tpr
 
+        max_diff = max(true_positive_rates.values()) - min(true_positive_rates.values())
+
+        return {
+            "true_positive_rates": true_positive_rates,
+            "max_difference": max_diff
+            "assessment": "Potential bias detected" if max_diff > 0.1 else "No significant bias detected"
+        }
+
+    
