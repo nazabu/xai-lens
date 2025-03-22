@@ -132,7 +132,7 @@ class BiasDetector:
 
         return {
             "true_positive_rates": true_positive_rates,
-            "max_difference": max_diff
+            "max_difference": max_diff,
             "assessment": "Potential bias detected" if max_diff > 0.1 else "No significant bias detected"
         }
 
