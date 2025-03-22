@@ -102,11 +102,14 @@ class BiasDetector:
         feature_values = self.data[sensitive_feature].unique()
         true_positive_rates = {}
 
-        # loop over feature_values --> get true posivite rate and find max difference
+        #  find max difference return tpr, maxdiff, assement
         for value in feature_values:
             group_mask = self.data[sensitive_feature] == value
             group_predictions = predictions[group_mask]
             group_target = self.target[group_mask]
 
             tn, fp, fn, tp = confusion_matrix(group_target, group_predictions, labels=[0,1]).ravel()
-            
+
+            tpr = tp / (tp + fn) if (tp + fn) > 0 else 0 # ensure doesn't divide by 0
+            true_positive_rates[value] = tpr
+
