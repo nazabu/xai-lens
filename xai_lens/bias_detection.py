@@ -142,4 +142,10 @@ class BiasDetector:
     
     def generate_bias_report(self):
         report = {}
+
+        for feature in self.sensitive_features:
+            report[feature] = {
+                    "disparate_impact": self.calculate_disparate_impact(feature),
+                               }
+
         return report
