@@ -142,8 +142,10 @@ class BiasDetector:
     
     def generate_bias_report(self):
         """
-        Generate a bias report.
-        :return: report
+        Generate a comprehensive bias report for all sensitive features.
+
+        Returns:
+        - Dictionary with bias metrics for each sensitive feature
         """
         report = {}
 
