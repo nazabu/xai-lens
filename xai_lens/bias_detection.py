@@ -1,3 +1,5 @@
+from symbol import continue_stmt
+
 import numpy as np
 from sklearn.metrics import confusion_matrix
 
@@ -137,3 +139,7 @@ class BiasDetector:
 
 
     # TODO: improve function comments
+    
+    def generate_bias_report(self):
+        #generate a bias report
+        return 0
