@@ -146,6 +146,7 @@ class BiasDetector:
         for feature in self.sensitive_features:
             report[feature] = {
                     "disparate_impact": self.calculate_disparate_impact(feature),
+                    "equal_opportunity": self.calculate_equal_opportunity(feature)
                                }
 
         return report
