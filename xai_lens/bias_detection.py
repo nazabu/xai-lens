@@ -141,6 +141,10 @@ class BiasDetector:
     # TODO: improve function comments
     
     def generate_bias_report(self):
+        """
+        Generate a bias report.
+        :return: report
+        """
         report = {}
 
         for feature in self.sensitive_features:
