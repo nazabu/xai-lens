@@ -142,4 +142,5 @@ class BiasDetector:
     
     def generate_bias_report(self):
         #generate a bias report
-        return 0
+        report = {}
+        return report
