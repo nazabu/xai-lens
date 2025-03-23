@@ -141,6 +141,5 @@ class BiasDetector:
     # TODO: improve function comments
     
     def generate_bias_report(self):
-        #generate a bias report
         report = {}
         return report
