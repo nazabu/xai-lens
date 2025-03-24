@@ -26,4 +26,5 @@ class InterpretabilityScorer:
             return "tree"
         elif "svm" in model_name:
             return "svm"
-        
+        else:
+            return "unknown"
