@@ -22,4 +22,6 @@ class InterpretabilityScorer:
 
         if "linear" in model_name or "logistic" in model_name:
             return "linear"
+        elif "tree" in model_name or "forest" in model_name or "boost" in model_name:
+            return "tree"
         
