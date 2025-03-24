@@ -6,6 +6,13 @@ class InterpretabilityScorer:
     Provides methods to calculate and aggregate interpretability scores.
     """
     def __init__(self, model, data=None):
+        """
+        Initialize the InterpretabilityScorer with a model and optional dataset.
+
+        Parameters:
+        - model:
+        - data:
+        """
         self.model = model
         self.data = data
         self.model_type  = self._determine_model_type()
