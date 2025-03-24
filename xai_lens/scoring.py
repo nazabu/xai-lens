@@ -24,4 +24,6 @@ class InterpretabilityScorer:
             return "linear"
         elif "tree" in model_name or "forest" in model_name or "boost" in model_name:
             return "tree"
+        elif "svm" in model_name:
+            return "svm"
         
