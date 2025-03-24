@@ -10,8 +10,8 @@ class InterpretabilityScorer:
         Initialize the InterpretabilityScorer with a model and optional dataset.
 
         Parameters:
-        - model:
-        - data:
+        - model: Trained machine learning model
+        - data: Optional feature dataset for calculating complexity metrics
         """
         self.model = model
         self.data = data
