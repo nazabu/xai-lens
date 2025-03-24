@@ -18,4 +18,8 @@ class InterpretabilityScorer:
         self.model_type  = self._determine_model_type()
 
     def _determine_model_type(self):
-        pass
+        model_name = str(type(self.model).__name__).lower()
+
+        if "linear" in model_name or "logistic" in model_name:
+            return "linear"
+        
