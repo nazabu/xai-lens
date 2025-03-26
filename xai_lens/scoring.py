@@ -35,5 +35,7 @@ class InterpretabilityScorer:
             try:
                 if hasattr(self.model, 'coef_'):
                     n_features = np.count_nonzero(self.model.coef_)
+                else:
+                    n_features = 0
             except:
                 pass
