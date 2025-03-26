@@ -32,4 +32,7 @@ class InterpretabilityScorer:
     def calculate_model_complexity(self):
 
         if self.model_type == "linear":
-            n_features = np.count_nonzero(self.model)
+            try:
+                n_features = np.count_nonzero(self.model)
+            except:
+                pass
