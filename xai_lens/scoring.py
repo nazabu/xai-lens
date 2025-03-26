@@ -40,4 +40,7 @@ class InterpretabilityScorer:
 
                 return min(0.2 + (n_features/1000), 0.3)
             except:
-                pass
+                return 0.2
+
+        else:
+            pass
