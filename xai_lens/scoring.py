@@ -29,4 +29,5 @@ class InterpretabilityScorer:
         else:
             return "unknown"
 
-    
+    def calculate_model_complexity(self):
+        pass
