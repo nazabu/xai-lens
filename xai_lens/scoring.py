@@ -33,6 +33,7 @@ class InterpretabilityScorer:
 
         if self.model_type == "linear":
             try:
-                n_features = np.count_nonzero(self.model)
+                if hasattr(self.model, 'coef_'):
+                    n_features = np.count_nonzero(self.model.coef_)
             except:
                 pass
