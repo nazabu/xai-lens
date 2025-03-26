@@ -37,5 +37,7 @@ class InterpretabilityScorer:
                     n_features = np.count_nonzero(self.model.coef_)
                 else:
                     n_features = 0
+
+                return min(0.2 + (n_features/1000), 0.3)
             except:
                 pass
