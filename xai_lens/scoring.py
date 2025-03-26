@@ -1,5 +1,4 @@
 
-
 class InterpretabilityScorer:
     """
     A class for scoring model interpretability based on various metrics.
@@ -30,4 +29,6 @@ class InterpretabilityScorer:
             return "unknown"
 
     def calculate_model_complexity(self):
-        pass
+
+        if self.model_type == "linear":
+            pass
