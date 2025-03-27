@@ -38,6 +38,7 @@ class InterpretabilityScorer:
                 else:
                     n_features = 0
 
+                # More features = slightly lower interpretability
                 return min(0.2 + (n_features/1000), 0.3)
             except:
                 return 0.2
