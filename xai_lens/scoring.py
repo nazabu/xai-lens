@@ -48,4 +48,4 @@ class InterpretabilityScorer:
         else self.model_type == "tree":
             try:
                 if hasattr(self.model, 'get_depth'):
-                    pass
+                    depth = self.model.get_depth()
