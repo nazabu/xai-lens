@@ -53,4 +53,7 @@ class InterpretabilityScorer:
                 elif hasattr(self.model, 'estimators_'):
                     n_estimators = self.model.get_n_estimators()
                     return min(0.4 + (n_estimators / 500), 0.8)
-                
+                else:
+                    return 0.5
+            except:
+                return 0.5
