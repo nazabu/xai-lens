@@ -32,6 +32,7 @@ class InterpretabilityScorer:
     def calculate_model_complexity(self):
 
         if self.model_type == "linear":
+            # Generally, linear models are highly interpretable
             try:
                 # count non-zero coefficients
                 if hasattr(self.model, 'coef_'):
