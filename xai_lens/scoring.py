@@ -33,12 +33,13 @@ class InterpretabilityScorer:
 
         if self.model_type == "linear":
             try:
+                # count non-zero coefficients
                 if hasattr(self.model, 'coef_'):
                     n_features = np.count_nonzero(self.model.coef_)
                 else:
                     n_features = 0
 
-                # More features = slightly lower interpretability, but still high 
+                # More features = slightly lower interpretability, but still high
                 return min(0.2 + (n_features/1000), 0.3)
             except:
                 return 0.2
