@@ -45,5 +45,5 @@ class InterpretabilityScorer:
             except:
                 return 0.2
 
-        else:
+        else self.model_type == "tree":
             pass
