@@ -45,7 +45,8 @@ class InterpretabilityScorer:
             except:
                 return 0.2
 
-        else self.model_type == "tree":
+        elif self.model_type == "tree":
             try:
                 if hasattr(self.model, 'get_depth'):
                     depth = self.model.get_depth()
+                    return min(0.3 + (depth / 20), 0.7)
