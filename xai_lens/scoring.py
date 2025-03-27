@@ -50,3 +50,7 @@ class InterpretabilityScorer:
                 if hasattr(self.model, 'get_depth'):
                     depth = self.model.get_depth()
                     return min(0.3 + (depth / 20), 0.7)
+                elif hasattr(self.model, 'estimators_'):
+                    n_estimators = self.model.get_n_estimators()
+                    return min(0.4 + (n_estimators / 500), 0.8)
+                
