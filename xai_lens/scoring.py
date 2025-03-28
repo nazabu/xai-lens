@@ -73,4 +73,4 @@ class InterpretabilityScorer:
             return 0.9
 
         else:
-            return 0
+            return 0.9
