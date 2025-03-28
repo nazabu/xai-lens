@@ -68,4 +68,5 @@ class InterpretabilityScorer:
             except:
                 return 0.7
 
-        
+        elif self.model_type == "neural":
+            return 0
