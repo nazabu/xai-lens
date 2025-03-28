@@ -58,5 +58,5 @@ class InterpretabilityScorer:
             except:
                 return 0.5
 
-        elif self.model_type == "forest":
+        elif self.model_type == "svm":
             pass
