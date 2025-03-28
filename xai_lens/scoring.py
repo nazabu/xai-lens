@@ -62,3 +62,5 @@ class InterpretabilityScorer:
             try:
                 if hasattr(self.model, 'kernel') and self.model.kernel == "linear":
                     return 0.6
+                else:
+                    return 0.8
