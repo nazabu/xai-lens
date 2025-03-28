@@ -73,4 +73,5 @@ class InterpretabilityScorer:
             return 0.9
 
         else:
+            # Can't identify model type, so assume moderate complexity
             return 0.9
