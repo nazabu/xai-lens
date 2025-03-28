@@ -59,4 +59,6 @@ class InterpretabilityScorer:
                 return 0.5
 
         elif self.model_type == "svm":
-            pass
+            try:
+                pass
+            
