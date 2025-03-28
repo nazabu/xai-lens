@@ -69,4 +69,6 @@ class InterpretabilityScorer:
                 return 0.7
 
         elif self.model_type == "neural":
+            # NNs are typically the least interpretable
             return 0.9
+        
