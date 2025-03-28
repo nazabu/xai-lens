@@ -60,5 +60,5 @@ class InterpretabilityScorer:
 
         elif self.model_type == "svm":
             try:
-                pass
-            
+                if hasattr(self.model, 'kernel') and self.model.kernel == "linear":
+                    return 0.6
