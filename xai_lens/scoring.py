@@ -59,6 +59,7 @@ class InterpretabilityScorer:
                 return 0.5
 
         elif self.model_type == "svm":
+            # SVMs w/ linear kernels are more interpretable than RBF
             try:
                 if hasattr(self.model, 'kernel') and self.model.kernel == "linear":
                     return 0.6
@@ -66,3 +67,5 @@ class InterpretabilityScorer:
                     return 0.8
             except:
                 return 0.7
+
+        
