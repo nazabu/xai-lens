@@ -75,3 +75,6 @@ class InterpretabilityScorer:
         else:
             # Can't identify model type, so assume moderate complexity
             return 0.9
+
+    def calculate_feature_importance_availability(self):
+        pass
