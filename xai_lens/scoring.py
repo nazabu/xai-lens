@@ -84,4 +84,4 @@ class InterpretabilityScorer:
         if has_feature_importance:
             return 1.0
         elif has_coef:
-            return 0 # some val less than 1.0
+            return 0.8
