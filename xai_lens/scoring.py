@@ -77,4 +77,5 @@ class InterpretabilityScorer:
             return 0.9
 
     def calculate_feature_importance_availability(self):
-        pass
+        has_feature_importance = hasattr(self.model, 'feature_importances_')
+        
