@@ -77,6 +77,6 @@ class InterpretabilityScorer:
             return 0.9
 
     def calculate_feature_importance_availability(self):
+        #Check for built-in feature importance attributes
         has_feature_importance = hasattr(self.model, 'feature_importances_')
         has_coef = hasattr(self.model, 'coef_')
-        
