@@ -80,3 +80,6 @@ class InterpretabilityScorer:
         #Check for built-in feature importance attributes
         has_feature_importance = hasattr(self.model, 'feature_importances_')
         has_coef = hasattr(self.model, 'coef_')
+
+        if has_feature_importance:
+            return 1
