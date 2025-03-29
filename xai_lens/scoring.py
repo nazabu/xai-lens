@@ -87,4 +87,4 @@ class InterpretabilityScorer:
             return 0.8
         else:
             # No direct feature importance
-            return 0
+            return 0.0
