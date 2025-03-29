@@ -82,4 +82,4 @@ class InterpretabilityScorer:
         has_coef = hasattr(self.model, 'coef_')
 
         if has_feature_importance:
-            return 1
+            return 1.0
