@@ -97,7 +97,6 @@ class ExplainabilityAnalyzer:
                 self.data[instance_index],
                 self.model.predict_proba
             )
-            explanation.show_in_notebook()
             return explanation
 
         except Exception as e:

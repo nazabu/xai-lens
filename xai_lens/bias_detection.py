@@ -1,5 +1,3 @@
-from symbol import continue_stmt
-
 import numpy as np
 from sklearn.metrics import confusion_matrix
 
@@ -17,7 +15,7 @@ class BiasDetector:
         Parameters:
         - model: Trained machine learning model
         - data: Feature dataset (pandas DataFrame)
-        - target: Target variable name or array
+        - target: Target variable name (str) or array-like of target values
         - sensitive_features: List of column names representing sensitive attributes
         """
         self.model = model
@@ -25,25 +23,36 @@ class BiasDetector:
 
         if isinstance(target, str):
             if target in data.columns:
+                self.target_column = target
                 self.target = data[target].values
             else:
                 raise ValueError(f"Target column '{target}' not found in data")
         else:
-            self.target = target
+            self.target_column = None
+            self.target = np.asarray(target)
 
         self.sensitive_features = sensitive_features
-        self.__validate_sensitive__features()
+        self._validate_sensitive_features()
 
-    def __validate_sensitive__features(self):
-        if not all(feature in self.data.columns for feature in self.sensitive_features):
-            missing = [f for f in self.sensitive_features if f not in self.data.columns]
+    def _validate_sensitive_features(self):
+        missing = [f for f in self.sensitive_features if f not in self.data.columns]
+        if missing:
             raise ValueError(f"Sensitive features {missing} not found in data")
+
+    def _get_feature_columns(self, sensitive_feature):
+        """Return the data columns to use for prediction, excluding sensitive and target columns."""
+        drop_cols = [sensitive_feature]
+        if self.target_column and self.target_column in self.data.columns:
+            drop_cols.append(self.target_column)
+        return self.data.drop(columns=drop_cols)
 
     def calculate_disparate_impact(self, sensitive_feature, threshold=0.8):
         """
         Calculate disparate impact for a sensitive feature.
 
-        A score < threshold indicates potential disparate impact.
+        Disparate impact compares the positive prediction rate of each group
+        against the group with the highest rate. A ratio below the threshold
+        (commonly 0.8, the "four-fifths rule") indicates potential bias.
 
         Parameters:
         - sensitive_feature: Name of the sensitive feature to analyze
@@ -55,104 +64,102 @@ class BiasDetector:
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
-        # TODO: make the below readable
-        # Get predictions
-        predictions = self.model.predict(self.data.drop(
-            columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature,
-                                                                                     self.target.name]))
-        # Calculate positive prediction rates for each group
+        features = self._get_feature_columns(sensitive_feature)
+        predictions = self.model.predict(features)
+
+        # Calculate positive prediction rate for each group
         feature_values = self.data[sensitive_feature].unique()
         positive_rates = {}
-
         for value in feature_values:
             group_mask = self.data[sensitive_feature] == value
-            group_predictions = predictions[group_mask]
-            positive_rate = np.mean(group_predictions == 1) if 1 in group_predictions else 0
-            positive_rates[value] = positive_rate
+            group_preds = predictions[group_mask]
+            positive_rates[value] = np.mean(group_preds == 1) if len(group_preds) > 0 else 0.0
 
-        # Find reference group (highest positive prediction rate)
-        reference_group = max(positive_rates.items(), key=lambda x: x[1])
+        # Reference group = highest positive prediction rate
+        reference_group = max(positive_rates, key=positive_rates.get)
+        reference_rate = positive_rates[reference_group]
 
-        # Calculate disparate impact for all groups compared to reference
+        # Calculate disparate impact ratios
         impact_scores = {}
         for group, rate in positive_rates.items():
-            if group == reference_group[0] or reference_group[1] == 0:
+            if group == reference_group or reference_rate == 0:
                 impact_scores[group] = 1.0
             else:
-                impact_scores[group] = rate / reference_group[1]
+                impact_scores[group] = rate / reference_rate
 
-        # Overall assessment
         min_score = min(impact_scores.values())
-        assessment = "Potential disparate impact detected" if min_score < threshold else "No disparate impact detected"
+        assessment = (
+            "Potential disparate impact detected"
+            if min_score < threshold
+            else "No disparate impact detected"
+        )
 
         return {
             "scores": impact_scores,
-            "reference_group": reference_group[0],
+            "reference_group": reference_group,
             "min_score": min_score,
             "threshold": threshold,
-            "assessment": assessment
+            "assessment": assessment,
         }
 
     def calculate_equal_opportunity(self, sensitive_feature):
         """
         Calculate equal opportunity difference for a sensitive feature.
 
-        Equal opportunity measures the difference in true positive rates across groups.
+        Equal opportunity measures the difference in true positive rates
+        across groups. A large difference indicates the model is better
+        at correctly identifying positives for some groups than others.
 
         Parameters:
         - sensitive_feature: Name of the sensitive feature to analyze
 
         Returns:
-        - Dictionary with equal opportunity metrics
+        - Dictionary with true positive rates per group and max difference
         """
         if sensitive_feature not in self.sensitive_features:
             raise ValueError(f"'{sensitive_feature}' is not in the list of sensitive features")
 
-        # Get predictions
-        features = self.data.drop(columns=[sensitive_feature] if isinstance(self.target, np.ndarray) else [sensitive_feature, self.target.name])
+        features = self._get_feature_columns(sensitive_feature)
         predictions = self.model.predict(features)
 
-        # Calculate true positive rates for each group
         feature_values = self.data[sensitive_feature].unique()
         true_positive_rates = {}
 
         for value in feature_values:
             group_mask = self.data[sensitive_feature] == value
-            group_predictions = predictions[group_mask]
+            group_preds = predictions[group_mask]
             group_target = self.target[group_mask]
 
-            # Calculate confusion matrix
-            tn, fp, fn, tp = confusion_matrix(group_target, group_predictions, labels=[0,1]).ravel()
-
-            # True positive rate (sensitivity/recall)
-            tpr = tp / (tp + fn) if (tp + fn) > 0 else 0 # ensure doesn't divide by 0
+            tn, fp, fn, tp = confusion_matrix(
+                group_target, group_preds, labels=[0, 1]
+            ).ravel()
+            tpr = tp / (tp + fn) if (tp + fn) > 0 else 0.0
             true_positive_rates[value] = tpr
 
-        # Calculate max difference in true positive rates
         max_diff = max(true_positive_rates.values()) - min(true_positive_rates.values())
 
         return {
             "true_positive_rates": true_positive_rates,
             "max_difference": max_diff,
-            "assessment": "Potential bias detected" if max_diff > 0.1 else "No significant bias detected"
+            "assessment": (
+                "Potential bias detected"
+                if max_diff > 0.1
+                else "No significant bias detected"
+            ),
         }
 
-
-    # TODO: improve function comments
-    
     def generate_bias_report(self):
         """
         Generate a comprehensive bias report for all sensitive features.
 
         Returns:
-        - Dictionary with bias metrics for each sensitive feature
+        - Dictionary with disparate impact and equal opportunity metrics
+          for each sensitive feature
         """
         report = {}
-
         for feature in self.sensitive_features:
             report[feature] = {
                 "disparate_impact": self.calculate_disparate_impact(feature),
-                "equal_opportunity": self.calculate_equal_opportunity(feature)
+                "equal_opportunity": self.calculate_equal_opportunity(feature),
             }
-
         return report
